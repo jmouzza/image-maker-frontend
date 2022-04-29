@@ -32,7 +32,7 @@ export const Create = () => {
             img: formulario.img.value
         }
         await setNuevoProducto(productoForm);
-        await axios.post('http://localhost:3900/api/saveProduct',nuevoProducto)
+        await axios.post('https://image-maker-backend-751f8a9l1-jmouzza.vercel.app/api/saveProduct',nuevoProducto)
         .then(function (response) {
             if(response.data.status === 200 && response.data.product){
                 setMensaje(response.data.message);

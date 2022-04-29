@@ -8,7 +8,7 @@ export const Home = () => {
     const search = (e) => {
         
         if(e.target.value.length>0){
-            axios.get('http://localhost:3900/api/findProducts/'+e.target.value)
+            axios.get('https://image-maker-backend-751f8a9l1-jmouzza.vercel.app/api/findProducts/'+e.target.value)
             .then(function (response) {
                 if(response.data.status === 200 && response.data.products){
                     setProductos(response.data.products);

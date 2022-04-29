@@ -6,7 +6,7 @@ export const Products = () => {
     
     const [productos,setProductos] = useState([]);
     useEffect(()=>{
-        axios.get('http://localhost:3900/api/getProducts')
+        axios.get('https://image-maker-backend-751f8a9l1-jmouzza.vercel.app/api/getProducts')
         .then(function (response) {
             if(response.data.status === 200 && response.data.products){
                 setProductos(response.data.products);
