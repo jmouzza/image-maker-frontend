@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export const Products = () => {
-    
     const [productos,setProductos] = useState([]);
     useEffect(()=>{
-        axios.get('https://image-maker-backend-751f8a9l1-jmouzza.vercel.app/api/getProducts')
+        axios.get(process.env.REACT_APP_BACKEND_URL+'/getProducts')
         .then(function (response) {
             if(response.data.status === 200 && response.data.products){
                 setProductos(response.data.products);
@@ -34,7 +33,7 @@ export const Products = () => {
                 <>
                     {productos.map(producto => {
                         return (
-                            <article key={producto.id} className="listado-item">
+                            <article key={producto._id} className="listado-item">
                                 <img src={producto.img} alt="Producto"/>
                                 <h3>{producto.titulo}</h3>
                                 <p>${producto.precio.toLocaleString()}</p>
