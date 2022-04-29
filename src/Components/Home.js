@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { Find } from './Find'
 import axios from 'axios';
+import { Pagination } from './Pagination';
 
 export const Home = () => {
+    /*Paginador*/
+    const [currentPage,setCurrentPage] = useState(1);
+    const [productPerPage] = useState(8);
+    const [currentProducts,setCurrentProducts] = useState([]);
+    /*Paginador*/
     const [productos,setProductos] = useState([]);
     const search = (e) => {
         if(e.target.value.length>0){
@@ -24,6 +30,17 @@ export const Home = () => {
             setProductos([]);
         }
     }
+    useEffect(()=>{
+        paginar();
+    },[productos,currentPage])
+    const paginar = () => {
+        const indexOfLastPost = currentPage * productPerPage;
+        const indexOfFirstPost = indexOfLastPost - productPerPage;
+        setCurrentProducts(productos.slice(indexOfFirstPost, indexOfLastPost));
+    }
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    }
     return (
         <>
             <div className="buscador">
@@ -38,7 +55,8 @@ export const Home = () => {
                 <Link to="/create">Crear</Link> 
             </div>
             <div className="listado">
-                <Find productos={productos}/>
+                <Find productos={currentProducts}/>
+                <Pagination itemsXPagina={productPerPage} totalItems={productos.length} paginate={paginate}/>
             </div>
         </>
     )
